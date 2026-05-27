@@ -1,0 +1,20 @@
+<?php
+// conexao.php 4 SGC: Sistema Gerador de Currículo
+// Centraliza as configurações de acesso ao banco de dados.
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'sgc');
+define('DB_CHARSET','utf8');
+// Abre a conexão com o servidor MySQL
+$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS);
+if (!$conn) {
+ die('Erro ao conectar ao servidor MySQL: ' . mysql_error());
+}
+// Seleciona o banco de dados
+if (!mysql_select_db(DB_NAME, $conn)) {
+ die('Erro ao selecionar o banco de dados: ' . mysql_error($conn));
+}
+// Define o charset da conexão
+mysql_query('SET NAMES ' . DB_CHARSET, $conn);
+?>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+ <meta charset="UTF-8">
+ <title>SGC 4 Cadastro de Candidato</title>
+</head>
+<body>
+ <h1>Cadastro de Candidato</h1>
+ <form action="salvar_candidato.php" method="post">
+ <fieldset>
+ <legend>Dados Pessoais</legend>
+ <label>Nome completo:
+ <input type="text" name="nome" required maxlength="100">
+ </label><br>
+ <label>E-mail:
+ <input type="email" name="email" required maxlength="100">
+ </label><br>
+ <label>Telefone:
+ <input type="text" name="telefone" maxlength="20">
+ </label><br>
+ <label>Data de nascimento:
+ <input type="date" name="data_nascimento">
+ </label>
+ </fieldset>
+ <fieldset>
+ <legend>Formação e Experiência</legend>
+ <label>Formação acadêmica:
+ <textarea name="formacao" rows="4" cols="50"></textarea>
+ </label><br>
+ <label>Experiência profissional:
+ <textarea name="experiencia" rows="4" cols="50"></textarea>
+ </label><br>
+ <label>Habilidades:
+ <textarea name="habilidades" rows="3" cols="50"></textarea>
+ </label>
+ </fieldset>
+ <button type="submit">Salvar Candidato</button>
+ <a href="listar_candidatos.php">Ver lista de candidatos</a>
+ </form>
+</body>
+</html>
