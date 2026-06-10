@@ -18,7 +18,7 @@ $usuario  = 'root';
 $senha    = '';
 
 // Nome do banco de dados criado no phpMyAdmin
-$banco    = 'bd_sgc_eab';
+$banco    = 'bd_sgc_art';
 
 // Abre a conexão com o servidor MySQL
 $conexao = mysqli_connect($servidor, $usuario,

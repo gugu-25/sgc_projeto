@@ -13,7 +13,7 @@ require_once 'conexao.php';
 
 <!-- CABEÇALHO DO SISTEMA -->
 <header>
-    <a href="index.html"><img src="logo-SGC-4.1.png" alt="Logo do Site" class="logo"></a>
+    <a href="index.html"><img src="img-20260603/logo-SGC-2.1.png" alt="Logo do Site" class="logo"></a>
 </header>
 
 <nav>
