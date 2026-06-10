@@ -1,44 +1,44 @@
 <?php
-
+// salvar_candidato.php — SGC
 require_once 'conexao.php';
 
+// Verifica se o formulário foi submetido via POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
- header('Location: cadastro.html');
- exit;
+    header('Location: cadastro.html');
+    exit;
 }
 
-$nome = mysql_real_escape_string(trim($_POST['nome']),
-$conn);
-$email = mysql_real_escape_string(trim($_POST['email']),
-$conn);
-$telefone = mysql_real_escape_string(trim($_POST['telefone']),
-$conn);
-$dt_nasc =
-mysql_real_escape_string(trim($_POST['data_nascimento']), $conn);
-$formacao = mysql_real_escape_string(trim($_POST['formacao']),
-$conn);
-$experiencia=
-mysql_real_escape_string(trim($_POST['experiencia']),$conn);
-$habilidades=
-mysql_real_escape_string(trim($_POST['habilidades']),$conn);
+// Sanitiza as entradas para evitar SQL Injection
+$nome       = mysqli_real_escape_string($conexao, trim($_POST['nome']));
+$email      = mysqli_real_escape_string($conexao, trim($_POST['email']));
+$telefone   = mysqli_real_escape_string($conexao, trim($_POST['telefone']));
+$dt_nasc    = mysqli_real_escape_string($conexao, trim($_POST['data_nascimento']));
+$formacao   = mysqli_real_escape_string($conexao, trim($_POST['formacao']));
+$experiencia= mysqli_real_escape_string($conexao, trim($_POST['experiencia']));
+$habilidades= mysqli_real_escape_string($conexao, trim($_POST['habilidades']));
 
+// Validação mínima
 if (empty($nome) || empty($email)) {
- die('Erro: Nome e e-mail são obrigatórios. <a
-href="cadastro.html">Voltar</a>');
+    die('Erro: Nome e e-mail são obrigatórios. <a href="cadastro.html">Voltar</a>');
 }
 
+// Monta e executa a query INSERT
 $sql = "INSERT INTO candidatos
- (nome, email, telefone, data_nascimento,
- formacao, experiencia, habilidades)
- VALUES
- ('$nome', '$email', '$telefone', '$dt_nasc',
- '$formacao', '$experiencia', '$habilidades')";
-$resultado = mysql_query($sql, $conn);
-if (!$resultado) {
- die('Erro ao salvar candidato: ' . mysql_error($conn));
-}
-$id_inserido = mysql_insert_id($conn);
+            (nome, email, telefone, objetivo,
+             formacao, experiencia, habilidades)
+        VALUES
+            ('$nome', '$email', '$telefone', '$objetivo',
+             '$formacao', '$experiencia', '$habilidades')";
 
+$resultado = mysqli_query($conexao, $sql);
+
+if (!$resultado) {
+    die('Erro ao salvar candidato: ' . mysqli_error($conexao));
+}
+
+$id_inserido = mysqli_insert_id($conexao);
+
+// Redireciona para o currículo recém-criado
 header('Location: curriculo.php?id=' . $id_inserido);
 exit;
 ?>

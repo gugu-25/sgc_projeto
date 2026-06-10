@@ -15,13 +15,13 @@ if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
 $id = (int) $_POST['id'];
 
 // Sanitiza os campos recebidos
-$nome        = mysqli_real_escape_string($conexao, trim($_POST['nome']));
-$email       = mysqli_real_escape_string($conexao, trim($_POST['email']));
-$telefone    = mysqli_real_escape_string($conexao, trim($_POST['telefone']));
-//$dt_nasc     = mysqli_real_escape_string($conexao, trim($_POST['data_nascimento']));
-$formacao    = mysqli_real_escape_string($conexao, trim($_POST['formacao']));
-$experiencia = mysqli_real_escape_string($conexao, trim($_POST['experiencia']));
-$habilidades = mysqli_real_escape_string($conexao, trim($_POST['habilidades']));
+$nome        = mysql_real_escape_string(trim($_POST['nome']),        $conn);
+$email       = mysql_real_escape_string(trim($_POST['email']),       $conn);
+$telefone    = mysql_real_escape_string(trim($_POST['telefone']),    $conn);
+$dt_nasc     = mysql_real_escape_string(trim($_POST['data_nascimento']), $conn);
+$formacao    = mysql_real_escape_string(trim($_POST['formacao']),    $conn);
+$experiencia = mysql_real_escape_string(trim($_POST['experiencia']), $conn);
+$habilidades = mysql_real_escape_string(trim($_POST['habilidades']), $conn);
 
 // Validação mínima
 if (empty($nome) || empty($email)) {
@@ -33,19 +33,20 @@ $sql = "UPDATE candidatos SET
             nome         = '$nome',
             email        = '$email',
             telefone     = '$telefone',
+            data_nascimento = '$dt_nasc',
             formacao     = '$formacao',
             experiencia  = '$experiencia',
             habilidades  = '$habilidades'
         WHERE id = $id";
 
-$resultado = mysqli_query($conexao, $sql);
+$resultado = mysql_query($sql, $conn);
 
 if (!$resultado) {
-    die('Erro ao atualizar: ' . mysqli_error($conexao));
+    die('Erro ao atualizar: ' . mysql_error($conn));
 }
 
 // Verifica se alguma linha foi realmente alterada
-$linhas_afetadas = mysqli_affected_rows($conexao);
+$linhas_afetadas = mysql_affected_rows($conn);
 
 // Redireciona para o currículo atualizado
 header('Location: curriculo.php?id=' . $id);
